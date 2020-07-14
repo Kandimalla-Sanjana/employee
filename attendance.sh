@@ -9,16 +9,24 @@ days=20
 totalhrs=0
 totaldays=0;
 
-while [[ $totalhrs -lt $maxhrs && $totaldays -lt $days ]]
-do
-        (( totaldays++ ))
-	check=$(( RANDOM%3 ))
-        case $check in
+function getHours()
+{
+	case $1 in
                 $isFullTime) hrs=8 ;;
                 $isPartTime) hrs=4 ;;
                 *) hrs=0 ;;
         esac
-	totalhrs=$(( $totalhrs+$hrs ))
+	echo $hrs
+}
+
+
+while [[ $totalhrs -lt $maxhrs && $totaldays -lt $days ]]
+do
+        (( totaldays++ ))
+	check=$(( RANDOM%3 ))
+        workHours=`getHours $check`
+      	totalhrs=$(( $totalhrs+$workHours ))
 done
 totalsal=$(( $totalhrs*$rate ))
-echo "Salary is: "$totalsal
+echo "Salary is: " $totalsal
+
