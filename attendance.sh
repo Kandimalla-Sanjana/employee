@@ -18,15 +18,17 @@ function getHours()
         esac
 	echo $hrs
 }
-
-
+counter=0
 while [[ $totalhrs -lt $maxhrs && $totaldays -lt $days ]]
 do
         (( totaldays++ ))
 	check=$(( RANDOM%3 ))
         workHours=`getHours $check`
-      	totalhrs=$(( $totalhrs+$workHours ))
+	wage=$(($workHours*$rate))
+        dailywage[((counter++))]=$wage
+        totalhrs=$(( $totalhrs+$workHours ))
 done
 totalsal=$(( $totalhrs*$rate ))
+echo "Daily wage array is: "${dailywage[@]}
 echo "Salary is: " $totalsal
 
