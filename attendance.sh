@@ -1,14 +1,16 @@
 #! /bin/bash
-
-isPresent=1
-check=$(( RANDOM%2 ))
-if [ $isPresent -eq $check ]
+isPartTime=1
+isFullTime=2
+ratePerHr=20
+check=$(( RANDOM%3 ))
+if [ $isFullTime -eq $check ]
 then
-	rate=20
 	hrs=8
-	sal=$(($hrs*$rate))
+elif [ $isPartTime -eq $check ]
+then
+	hrs=4
 else
-	sal=0
+	hrs=0
 fi
-echo "Salary is: "$sal
-
+sal=$(( $hrs*$rate ))
+echo "Salary of the employee is: $sal"
