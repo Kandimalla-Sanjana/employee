@@ -1,5 +1,5 @@
 #! /bin/bash
-
+declare -A wages
 isPartTime=1
 isFullTime=2
 maxhrs=100
@@ -26,9 +26,14 @@ do
         workHours=`getHours $check`
 	wage=$(($workHours*$rate))
         dailywage[((counter++))]=$wage
+	wages[$totaldays]=$wage
         totalhrs=$(( $totalhrs+$workHours ))
 done
 totalsal=$(( $totalhrs*$rate ))
 echo "Daily wage array is: "${dailywage[@]}
 echo "Salary is: " $totalsal
+for((index=1;index<=$totaldays;index++))
+do
+        echo "Wage on day "$index" is: "${wages[$index]}
+done
 
